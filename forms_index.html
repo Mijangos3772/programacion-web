@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #D88DA6; /* color de tu paleta */
+            font-family: Arial, sans-serif;
+        }
+
+        form {
+            width: 400px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        .gender-group {
+            margin-top: 5px;
+        }
+
+        .gender-group input {
+            width: auto;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #AC6889;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #8C436B;
+        }
+    </style>
+</head>
+
+<body>
+
+<form id="formRegistro">
+    <h2>Registro</h2>
+
+    <label>Nombre y Apellido:</label>
+    <input type="text" id="nombre" required>
+
+    <label>Correo electrónico:</label>
+    <input type="email" id="correo" required>
+
+    <label>Edad (1 a 110):</label>
+    <input type="number" id="edad" min="1" max="110" required>
+
+    <label>Género:</label>
+    <div class="gender-group">
+        <input type="radio" name="genero" value="Hombre" required> Hombre
+        <input type="radio" name="genero" value="Mujer"> Mujer
+        <input type="radio" name="genero" value="Otro"> Otro
+    </div>
+
+    <label>Número de teléfono:</label>
+    <input type="tel" id="telefono" required>
+
+    <label>Fecha de cumpleaños:</label>
+    <input type="date" id="fecha" required>
+
+    <button type="submit">Enviar</button>
+</form>
+
+<script>
+document.getElementById("formRegistro").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    if (this.checkValidity()) {
+        alert("Todo bien, registro enviado");
+        this.reset();
+    }
+});
+</script>
+
+</body>
+</html>
+
