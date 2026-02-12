@@ -1,2 +1,0 @@
-# programacion-web
-tareas manzano
