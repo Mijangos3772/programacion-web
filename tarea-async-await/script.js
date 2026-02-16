@@ -17,22 +17,27 @@ async function ejercicio1() {
 
 async function ejercicio2() {
 
-    document.getElementById("text-id2").innerHTML = "Cargando datos...";
+    const contenedor = document.getElementById("text-id2");
+    contenedor.innerHTML = "Consultando clima en tiempo real...<br>";
 
     try {
-        const respuesta = await fetch("https://jsonplaceholder.typicode.com/users");
+        // Coordenadas de Ciudad de México
+        const respuesta = await fetch(
+            "https://api.open-meteo.com/v1/forecast?latitude=19.43&longitude=-99.13&current_weather=true"
+        );
+
         const datos = await respuesta.json();
 
-        let resultado = "";
+        console.log(datos);
 
-        datos.forEach(usuario => {
-            resultado += usuario.name + "<br>";
-        });
-
-        document.getElementById("text-id2").innerHTML = resultado;
+        contenedor.innerHTML += `
+             Temperatura actual: ${datos.current_weather.temperature} °C <br>
+             Velocidad del viento: ${datos.current_weather.windspeed} km/h <br>
+             Hora del reporte: ${datos.current_weather.time}
+        `;
 
     } catch (error) {
-        document.getElementById("text-id2").innerHTML = "Error al cargar datos";
+        console.error(error);
+        contenedor.innerHTML = "Error al consultar el clima";
     }
-
 }
