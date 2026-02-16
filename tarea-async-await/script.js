@@ -1,42 +1,38 @@
-const esperar = (ms) => {
-  return new promise(resolve => {
-    settimeout(() => {
-      resolve("Mensaje timeout tarde llego (2 segundos despues)");
-    }, ms);
-  });
-};
 
-const ejercicio1 = async () => {
+async function ejercicio1() {
 
-  const contenedor = document.getElementById("text-id");
+    function esperar(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
 
-  contenedor.innerHTML = "Iniciando programa...<br>";
-  contenedor.innerHTML += "Fin programa...<br>";
+    document.getElementById("text-id").innerHTML = "Esperando 2 segundos...";
 
-  const mensaje = await esperar(2000);
+    await esperar(2000);
 
-  contenedor.innerHTML += mensaje;
-};
+    document.getElementById("text-id").innerHTML = "Terminado ✅";
+}
 
-const ejercicio2 = async () => {
 
-    const contenedor = document.getElementById("text-id2");
-    contenedor.innerHTML = "Consultando API...<br>";
+
+
+async function ejercicio2() {
+
+    document.getElementById("text-id2").innerHTML = "Cargando datos...";
 
     try {
-        const respuesta = await fetch("https://api.exchangerate-api.com/v4/latest/USD");
+        const respuesta = await fetch("https://jsonplaceholder.typicode.com/users");
         const datos = await respuesta.json();
 
-        console.log(datos);
+        let resultado = "";
 
-        contenedor.innerHTML += `
-            Base: ${datos.base} <br>
-            Tipo de cambio MXN: ${datos.rates.MXN} <br>
-            Tipo de cambio EUR: ${datos.rates.EUR}
-        `;
+        datos.forEach(usuario => {
+            resultado += usuario.name + "<br>";
+        });
+
+        document.getElementById("text-id2").innerHTML = resultado;
 
     } catch (error) {
-        console.error("Error:", error);
-        contenedor.innerHTML += "Error al consultar la API";
+        document.getElementById("text-id2").innerHTML = "Error al cargar datos";
     }
-};
+
+}
